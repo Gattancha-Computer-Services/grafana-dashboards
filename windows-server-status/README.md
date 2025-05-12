@@ -1,62 +1,92 @@
-# Project Title
+# Windows Server Status Dashboard
 
-Simple overview of use/purpose.
+Overview Dashboard for Windows using Prometheus and Windows_Exporter
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+A comprehensive Grafana Dashboard that shows an overview of all servers, and also details stats on each server itself.
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Grafana - Version 11.6 or newer
+* Windows Exporter v0.30.0 or newer
+  
+### Installing The Dashboard
 
-### Installing
+* You will need to download the JSON and import it into Grafana
+* When prompted use your Prometheus datasource
+* You can also get the Dashboard from [Grafana.com](https://grafana.com/grafana/dashboards/16523-windows-status-prometheus/)
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+### Installing Windows Exporter
 
-### Executing program
+* Download the installer from [here](https://github.com/prometheus-community/windows_exporter)
+* Copy and install this on the Windows Server you wish to install. (See below for some example install strings)
 
-* How to run the program
-* Step-by-step bullets
+### Configuring Grafana
+
+* Log into your Grafana server
+* Open ```/etc/prometheus``` in a suitable editor, such as VIM, NANO, etc
+* Depending on your setup this may or maynot already exist, but this is an example of what you need to add:
+  
 ```
-code blocks for commands
+  - job_name: 'windows'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['server1.mydomain.lab:9115','server2.mydomain.lab:9115','server2.mydomain.lab:9115']
 ```
+* Just change the "server1.mydomain.lab" strings to your own servers and add any additional servers
+* Port should match the listening port for the Windows Exporter (I use 9115)
 
 ## Help
 
-Any advise for common problems or issues.
+Whilst a full description can be found on the Window Prometheus website, these are a few common ones I use for various roles:
+
+```$installfile``` can be set as a variable in Powershell or replaced directly with the path of the MSI Install file itself
+For example:
 ```
-command to run if program contains helper info
+$installfile = "D:\Windows Exporter\windows_exporter-0.30.6-amd64.msi"
+```
+
+Hyper-V:
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,hyperv,logical_disk,logon,memory,net,os,process,system,tcp,time,thermalzone" LISTEN_PORT="9115" /q
+```
+Domain Controller: 
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="ad,adcs,cache,cpu,cpu_info,cs,dfsr,dhcp,dns,logical_disk,logon,memory,net,os,system,tcp,time,terminal_services" LISTEN_PORT="9115" /q
+```
+Generic Server:
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,logical_disk,logon,memory,net,os,process,system,tcp,time" LISTEN_PORT="9115" /q
+```
+Print Server:
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,logical_disk,logon,memory,net,os,printer,process,system,tcp,time" LISTEN_PORT="9115" /q
+```
+SCCM/ConfigMgr Server
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,dfsr,iis,mssql,logical_disk,logon,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
+```
+SQL Server
+```
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,mssql,logical_disk,logon,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
 ```
 
 ## Authors
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+[@Gatt_](https://twitter.com/Gatt_)
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+* 4
+    * This release - Confirmed working with Grafana 11.6 and 12.0, as well as Windows Export 0.30.0
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the GNU General Public License v3.0 License - see the LICENSE.md file for details
 
-## Acknowledgments
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
