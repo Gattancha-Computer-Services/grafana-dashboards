@@ -1,6 +1,7 @@
 # Windows Server Status Dashboard
-
 Overview Dashboard for Windows using Prometheus and Windows_Exporter
+
+![screenshot](https://grafana.com/api/dashboards/16523/images/12387/image)
 
 ## Description
 
