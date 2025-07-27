@@ -802,7 +802,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "windows_os_info{job=~\"$job\"} * on(instance) group_right(product) windows_cs_hostname",
+          "expr": "windows_os_info{job=~\"$job\"} * on(instance) group_right(product) windows_os_hostname",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -827,7 +827,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "windows_cs_logical_processors{job=~\"$job\"}-0",
+          "expr": "windows_cpu_logical_processor{job=~\"$job\"}-0",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -863,7 +863,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "windows_cs_physical_memory_bytes{job=~\"$job\"}-0",
+          "expr": "windows_memory_physical_total_bytes{job=~\"$job\"}-0",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -875,7 +875,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "100-100 * windows_os_physical_memory_free_bytes{job=~\"$job\"} / windows_cs_physical_memory_bytes{job=~\"$job\"}",
+          "expr": "100-100 * windows_memory_physical_free_bytes{job=~\"$job\"} / windows_memory_physical_total_bytes{job=~\"$job\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1227,7 +1227,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "100.0-100 * windows_os_physical_memory_free_bytes{job=~\"$job\"} / windows_cs_physical_memory_bytes{job=~\"$job\"}",
+          "expr": "100.0-100 * windows_memory_physical_free_bytes{job=~\"$job\"} / windows_memory_physical_total_bytes{job=~\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -1867,7 +1867,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "windows_cs_logical_processors{instance=~\"$instance\"}",
+          "expr": "windows_cpu_logical_processor{instance=~\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -1951,7 +1951,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "windows_cs_physical_memory_bytes{instance=\"$instance\"}",
+          "expr": "windows_memory_physical_total_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -2234,7 +2234,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "100 - (avg by (instance) (irate(windows_cpu_time_total{mode=\"idle\", instance=~\"$instance.*\"}[$__interval])) * 100)",
+          "expr": "100 - (avg by (instance) (irate(windows_cpu_time_total{mode=\"idle\", instance=~\"$instance.*\"}[$__range])) * 100)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -2318,7 +2318,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "100-(windows_os_physical_memory_free_bytes{job=~\"$job\",instance=~\"$instance\"} / windows_cs_physical_memory_bytes{job=~\"$job\",instance=~\"$instance\"})*100",
+          "expr": "100-(windows_memory_physical_free_bytes{job=~\"$job\",instance=~\"$instance\"} / windows_memory_physical_total_bytes{job=~\"$job\",instance=~\"$instance\"})*100",
           "instant": false,
           "refId": "A"
         }
@@ -2813,7 +2813,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "windows_cs_physical_memory_bytes{job=~\"$job\",instance=~\"$instance\"}",
+          "expr": "windows_memory_physical_total_bytes{job=~\"$job\",instance=~\"$instance\"}",
           "format": "time_series",
           "functions": [],
           "group": {
@@ -3921,13 +3921,13 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(windows_cs_hostname, job)",
+        "definition": "label_values(windows_os_hostname, job)",
         "includeAll": false,
         "label": "Job",
         "name": "job",
         "options": [],
         "query": {
-          "query": "label_values(windows_cs_hostname, job)",
+          "query": "label_values(windows_os_hostname, job)",
           "refId": "Prometheus-job-Variable-Query"
         },
         "refresh": 1,
@@ -3941,13 +3941,13 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(windows_cs_hostname{job=~\"$job\"}, hostname)",
+        "definition": "label_values(windows_os_hostname{job=~\"$job\"}, hostname)",
         "includeAll": true,
         "label": "Hostname",
         "name": "hostname",
         "options": [],
         "query": {
-          "query": "label_values(windows_cs_hostname{job=~\"$job\"}, hostname)",
+          "query": "label_values(windows_os_hostname{job=~\"$job\"}, hostname)",
           "refId": "Prometheus-hostname-Variable-Query"
         },
         "refresh": 1,
@@ -3961,13 +3961,13 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(windows_cs_hostname{job=~\"$job\",hostname=~\"$hostname\"}, instance)",
+        "definition": "label_values(windows_os_hostname{job=~\"$job\",hostname=~\"$hostname\"}, instance)",
         "includeAll": false,
         "label": "instance",
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(windows_cs_hostname{job=~\"$job\",hostname=~\"$hostname\"}, instance)",
+          "query": "label_values(windows_os_hostname{job=~\"$job\",hostname=~\"$hostname\"}, instance)",
           "refId": "Prometheus-instance-Variable-Query"
         },
         "refresh": 1,
@@ -3981,14 +3981,14 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(windows_cs_hostname{job=~\"$job\",instance=~\"$instance\"}, hostname)",
+        "definition": "label_values(windows_os_hostname{job=~\"$job\",instance=~\"$instance\"}, hostname)",
         "hide": 2,
         "includeAll": false,
         "label": "Show Hostname",
         "name": "show_hostname",
         "options": [],
         "query": {
-          "query": "label_values(windows_cs_hostname{job=~\"$job\",instance=~\"$instance\"}, hostname)",
+          "query": "label_values(windows_os_hostname{job=~\"$job\",instance=~\"$instance\"}, hostname)",
           "refId": "Prometheus-show_hostname-Variable-Query"
         },
         "refresh": 1,
