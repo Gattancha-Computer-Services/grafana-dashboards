@@ -189,7 +189,7 @@
                   {
                     "targetBlank": false,
                     "title": "",
-                    "url": "/d/-gjIslqnz/?var-job=${__data.fields.job}&var-hostname=All&var-instance=${__data.fields.instance}"
+                    "url": "/d/${__dashboard.uid}/?var-job=${__data.fields.job}&var-hostname=All&var-instance=${__data.fields.instance}"
                   }
                 ]
               },
