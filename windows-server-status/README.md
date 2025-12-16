@@ -11,8 +11,8 @@ A comprehensive Grafana Dashboard that shows an overview of all servers, and als
 
 ### Dependencies
 
-* Grafana - Version 11.6 or newer
-* Windows Exporter v0.30.0 or newer
+* Grafana - Version 12.0.0 or newer
+* Windows Exporter v0.31.2 or newer
   
 ### Installing The Dashboard
 
@@ -52,27 +52,27 @@ $installfile = "D:\Windows Exporter\windows_exporter-0.30.6-amd64.msi"
 
 Hyper-V:
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,hyperv,logical_disk,logon,memory,net,os,process,system,tcp,time,thermalzone" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,hyperv,logical_disk,memory,net,os,process,system,tcp,time,thermalzone" LISTEN_PORT="9115" /q
 ```
 Domain Controller: 
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="ad,adcs,cache,cpu,cpu_info,cs,dfsr,dhcp,dns,logical_disk,logon,memory,net,os,system,tcp,time,terminal_services" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="ad,adcache,cpu,cpu_info,dfsr,dhcp,dns,logical_disk,memory,net,os,system,tcp,time,terminal_services" LISTEN_PORT="9115" /q
 ```
 Generic Server:
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,logical_disk,logon,memory,net,os,process,system,tcp,time" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,logical_disk,memory,net,os,process,system,tcp,time" LISTEN_PORT="9115" /q
 ```
 Print Server:
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,logical_disk,logon,memory,net,os,printer,process,system,tcp,time" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,logical_disk,memory,net,os,printer,process,system,tcp,time" LISTEN_PORT="9115" /q
 ```
 SCCM/ConfigMgr Server
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,dfsr,iis,mssql,logical_disk,logon,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,dfsr,iis,mssql,logical_disk,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
 ```
 SQL Server
 ```
-msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,cs,mssql,logical_disk,logon,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
+msiexec /i $InstallFile ENABLED_COLLECTORS="cache,cpu,cpu_info,mssql,logical_disk,memory,net,os,process,tcp,time,netframework,remote_fx,service,system" LISTEN_PORT="9115" /q
 ```
 
 ## Authors
