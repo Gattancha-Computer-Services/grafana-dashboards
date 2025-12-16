@@ -189,7 +189,7 @@
                   {
                     "targetBlank": false,
                     "title": "",
-                    "url": "/d/-gjIslqnz/?var-job=${__data.fields.job}&var-hostname=All&var-instance=${__data.fields.instance}"
+                    "url": "/d/${__dashboard.uid}/?var-job=${__data.fields.job}&var-hostname=All&var-instance=${__data.fields.instance}"
                   }
                 ]
               },
@@ -839,7 +839,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "avg by (instance) (windows_cpu_core_frequency_mhz{job=~\"$job\"})",
+          "expr": "avg by (instance) (windows_cpu_core_frequency_mhz{job=~\"$job\"} * 1000000)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3029,7 +3029,7 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{procecss}}",
+          "legendFormat": "{{process}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
@@ -3040,7 +3040,7 @@
           "step": 20
         }
       ],
-      "title": "CPU Load per Procecss",
+      "title": "CPU Load per Process",
       "type": "timeseries"
     },
     {
